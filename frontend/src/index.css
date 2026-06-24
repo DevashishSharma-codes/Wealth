@@ -1,0 +1,40 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Montserrat', sans-serif;
+  --font-heading: 'Montserrat', sans-serif;
+
+  --color-brand-blue: #1E2B49;
+  --color-brand-gold: #EAA850;
+  --color-brand-orange: #ED8B36;
+  --color-brand-dark: #1C1B1A;
+  --color-brand-light: #FBFBFA;
+  --color-brand-beige: #FAF8F5;
+  --color-brand-accent: #E56A1F;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  background-color: #FBFBFA;
+  color: #1C1B1A;
+  overflow-x: hidden;
+  letter-spacing: -0.01em;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Montserrat', sans-serif;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
