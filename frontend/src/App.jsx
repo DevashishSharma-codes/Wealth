@@ -1,14 +1,24 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Landing from './pages/Landing';
+import Home from './pages/Home';
 import Assessment from './pages/Assessment';
+import NotFound from './pages/NotFound';
+import AssessmentProvider from './context/AssessmentContext';
 
 export default function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Landing />} />
-        <Route path="/assessment" element={<Assessment />} />
+        <Route path="/" element={<Home />} />
+        <Route 
+          path="/assessment" 
+          element={
+            <AssessmentProvider>
+              <Assessment />
+            </AssessmentProvider>
+          } 
+        />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
   );
