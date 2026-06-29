@@ -8,7 +8,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'https://wealth-two-jet.vercel.app',
+        target: 'https://wealth-pboy.onrender.com',
         changeOrigin: true,
       }
     }

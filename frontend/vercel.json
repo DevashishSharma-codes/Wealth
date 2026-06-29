@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "https://wealth-two-jet.vercel.app/api/:path*"
+      "destination": "https://wealth-pboy.onrender.com/api/:path*"
     }
   ]
 }
