@@ -24,6 +24,9 @@ def create_app(env="development"):
     migrate.init_app(app, db)
     cache.init_app(app)
 
+    with app.app_context():
+        db.create_all()
+
     from app.middleware.logger import init_logger
     init_logger(app)
 

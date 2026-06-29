@@ -16,7 +16,7 @@ class DevelopmentConfig(Config):
 
 class ProductionConfig(Config):
     DEBUG = False
-    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL")
+    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL", "sqlite:////tmp/financial.db")
     SQLALCHEMY_ENGINE_OPTIONS = {
         "pool_size": 10,
         "max_overflow": 20,
