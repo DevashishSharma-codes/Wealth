@@ -2,7 +2,7 @@ from datetime import datetime, timezone
 import uuid
 
 from flask import request
-from flask_restx import Namespace, Resource, fields
+from flask_restx import Namespace, Resource, fields # type: ignore
 # pyrefly: ignore [missing-import]
 
 from app import db
