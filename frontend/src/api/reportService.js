@@ -12,7 +12,8 @@ export const generateReport = (assessmentId) => {
 
 export const getDownloadUrl = (assessmentId, reportId) => {
   const apiKey = import.meta.env.VITE_API_KEY;
-  return `/api/v1/report/${assessmentId}/download/${reportId}?api_key=${apiKey}`;
+  const apiBase = import.meta.env.VITE_API_URL || "";
+  return `${apiBase}/api/v1/report/${assessmentId}/download/${reportId}?api_key=${apiKey}`;
 };
 
 export const checkReportStatus = (assessmentId, jobId) => {
