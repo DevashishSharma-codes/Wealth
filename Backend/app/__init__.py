@@ -1,10 +1,16 @@
 import importlib
+import os
 
+# pyrefly: ignore [missing-import]
 from flask import Flask
+# pyrefly: ignore [missing-import]
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+# pyrefly: ignore [missing-import]
 from flask_restx import Api
+# pyrefly: ignore [missing-import]
 from flask_caching import Cache
+# pyrefly: ignore [missing-import]
 from werkzeug.exceptions import BadRequest
 
 from app.config import config_map
@@ -17,7 +23,9 @@ cache = Cache()
 
 
 def create_app(env="development"):
-    app = Flask(__name__)
+    import tempfile
+    instance_path = os.path.join(tempfile.gettempdir(), "instance")
+    app = Flask(__name__, instance_path=instance_path)
     app.config.from_object(config_map[env])
 
     db.init_app(app)
@@ -33,6 +41,7 @@ def create_app(env="development"):
     @app.errorhandler(APIError)
     def handle_api_error(e):
         import uuid
+        # pyrefly: ignore [missing-import]
         from flask import jsonify
         return jsonify({
             "status": "error",
@@ -100,6 +109,7 @@ def create_app(env="development"):
             return response
 
         import uuid
+        # pyrefly: ignore [missing-import]
         from flask import jsonify
 
         errors = payload.get("errors") or {}
