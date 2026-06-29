@@ -146,6 +146,7 @@ export default function AssessmentProvider({ children }) {
     setStep(n);
     if (n < 5) {
       setShowReport(false);
+      setReportId(null);
     }
   };
 
@@ -167,6 +168,7 @@ export default function AssessmentProvider({ children }) {
     try {
       let currentId = assessmentId;
       if (!currentId) {
+        await assessmentService.getRates();
         const createRes = await assessmentService.createAssessment();
         currentId = createRes.data.assessment_id;
         setAssessmentId(currentId);
@@ -398,7 +400,7 @@ export default function AssessmentProvider({ children }) {
       setCalculationResult(calcRes.data);
       setShowReport(true);
 
-      // 3. Generate Report PDF (Asynchronous in background)
+      // 3. Generate Report PDF in the background.
       try {
         const reportRes = await reportService.generateReport(assessmentId);
         if (reportRes && reportRes.data && reportRes.data.job_id) {
@@ -419,7 +421,7 @@ export default function AssessmentProvider({ children }) {
                   setReportId(statusRes.data.report_id);
                   reportDone = true;
                 } else if (statusRes.status === "failed") {
-                  console.error("Report PDF generation failed:", statusRes.data.message);
+                  console.error("Report generation failed:", statusRes.data.message);
                   break;
                 }
               } catch (pollErr) {
@@ -429,7 +431,7 @@ export default function AssessmentProvider({ children }) {
           })();
         }
       } catch (reportErr) {
-        console.error("Failed to start PDF report generation:", reportErr);
+        console.error("Failed to start report generation:", reportErr);
       }
     } catch (err) {
       console.error(err);
@@ -439,13 +441,20 @@ export default function AssessmentProvider({ children }) {
     }
   };
 
-  const downloadReport = () => {
+  const downloadReport = async () => {
     if (!assessmentId || !reportId) {
       console.error("[DOWNLOAD ERROR] assessmentId or reportId missing:", { assessmentId, reportId });
       return;
     }
-    console.log("[API REQUEST] Direct PDF download initiated:", { assessmentId, reportId });
-    window.location.href = reportService.getDownloadUrl(assessmentId, reportId);
+    console.log("[API REQUEST] Protected report download initiated:", { assessmentId, reportId });
+    const reportBlob = await reportService.downloadGeneratedReport(assessmentId, reportId);
+    const download = reportService.createReportDownload(reportBlob, assessmentId);
+    const link = document.createElement("a");
+    link.href = download.url;
+    link.download = download.fileName;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
   };
 
   const contextValue = {

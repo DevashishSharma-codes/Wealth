@@ -26,7 +26,7 @@ export function Step1Communication() {
   return (
     <div className="w-full flex-1 flex flex-col" style={{ color: TEXT_DARK }}>
       <div className="w-full flex-1 flex flex-col">
-        <div className="grid grid-cols-1 md:grid-cols-[1.5fr_1fr] gap-10 md:gap-12 lg:gap-16 items-start flex-1">
+        <div className="grid grid-cols-1 lg:grid-cols-[1.6fr_1fr] gap-10 lg:gap-16 items-center flex-1">
 
           {/* Left Column: Form Fields */}
           <div className="space-y-7 w-full">
@@ -50,7 +50,7 @@ export function Step1Communication() {
                 </div>
 
                 {/* Mobile & Email Row */}
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <FormField
                     label="Mobile Number"
                     name="mobile"
@@ -88,14 +88,14 @@ export function Step1Communication() {
                 </div>
 
                 {/* Spouse Mobile & Spouse Email Row */}
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <FormField
                     label="Spouse Mobile Number"
                     name="spouseMobile"
                     value={formData.spouseMobile || ''}
                     onChange={handleInputChange}
                     placeholder="Enter spouse's mobile number"
-                    required={false}
+                    required={true}
                   />
                   <FormField
                     label="Spouse Email Address"
@@ -104,12 +104,12 @@ export function Step1Communication() {
                     onChange={handleInputChange}
                     placeholder="Enter spouse's email address"
                     type="email"
-                    required={false}
+                    required={true}
                   />
                 </div>
               </div>
 
-              {/* Consent checkbox (Updated for proper tick visibility) */}
+              {/* Consent checkbox */}
               <div className="pt-2">
                 <label className="flex items-start gap-3 cursor-pointer select-none">
                   <div className="relative flex items-center mt-0.5">
@@ -118,18 +118,11 @@ export function Step1Communication() {
                       name="consent"
                       checked={!!formData.consent}
                       onChange={handleInputChange}
-                      className="sr-only"
+                      className="sr-only peer"
                     />
-                    {/* Using React State to toggle classes dynamically instead of peer-checked */}
-                    <div
-                      className={`w-5 h-5 rounded-lg transition-all flex items-center justify-center ${!!formData.consent
-                          ? 'bg-[#F0883E] border-[#F0883E] shadow-none'
-                          : 'neu-checkbox'
-                        }`}
-                    >
+                    <div className="w-5 h-5 rounded-lg transition-all neu-checkbox peer-checked:bg-[#F0883E] peer-checked:border-[#F0883E] peer-checked:shadow-none flex items-center justify-center">
                       <svg
-                        className={`w-3.5 h-3.5 text-white transition-opacity ${!!formData.consent ? 'opacity-100' : 'opacity-0'
-                          }`}
+                        className="w-3.5 h-3.5 text-white opacity-0 peer-checked:opacity-100 transition-opacity"
                         fill="none"
                         stroke="currentColor"
                         strokeWidth="3"
@@ -157,8 +150,8 @@ export function Step1Communication() {
           </div>
 
           {/* Right Column: 3D Illustration */}
-          <div className="w-full self-stretch flex items-start justify-center pt-8">
-            <div className="md:sticky md:top-32 w-full max-w-[280px] sm:max-w-[360px] lg:max-w-[420px] select-none pointer-events-none drop-shadow-md">
+          <div className="flex items-center justify-center w-full">
+            <div className="w-full max-w-[280px] sm:max-w-[360px] lg:max-w-[420px] select-none pointer-events-none drop-shadow-md">
               <img
                 src="/src/chat_bubbles_neu.png"
                 alt="3D Chat bubbles illustration"
