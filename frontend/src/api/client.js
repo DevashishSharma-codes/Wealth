@@ -5,7 +5,11 @@ export const API_BASE_URL =
 
 export const API_KEY =
   import.meta.env.VITE_API_KEY ||
-  "1e2e1467ed6a58317992fe2b38d70a61b59591f2d2f9910ed7fa62292c4a5dea";
+  "e2d0098d7ad7aaa3efd03548db794b2b9a7cc2d66b25d554f1a53e11c3ac27b1";
+
+export const ADMIN_API_KEY =
+  import.meta.env.VITE_ADMIN_API_KEY ||
+  "1816ccd61807db177b050812d5ed59cb163956e8d5ec1244ca2b3c9da6fda545";
 
 const maskApiKey = (key) => {
   if (!key) return "<missing>";
@@ -21,7 +25,7 @@ const client = axios.create({
 });
 
 client.interceptors.request.use((config) => {
-  if (API_KEY) {
+  if (API_KEY && !config.headers["X-API-Key"]) {
     config.headers["X-API-Key"] = API_KEY;
   }
 

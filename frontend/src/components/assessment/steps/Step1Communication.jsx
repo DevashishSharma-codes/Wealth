@@ -95,7 +95,7 @@ export function Step1Communication() {
                     value={formData.spouseMobile || ''}
                     onChange={handleInputChange}
                     placeholder="Enter spouse's mobile number"
-                    required={true}
+                    required={false}
                   />
                   <FormField
                     label="Spouse Email Address"
@@ -104,7 +104,7 @@ export function Step1Communication() {
                     onChange={handleInputChange}
                     placeholder="Enter spouse's email address"
                     type="email"
-                    required={true}
+                    required={false}
                   />
                 </div>
               </div>
@@ -118,11 +118,15 @@ export function Step1Communication() {
                       name="consent"
                       checked={!!formData.consent}
                       onChange={handleInputChange}
-                      className="sr-only peer"
+                      className="sr-only"
                     />
-                    <div className="w-5 h-5 rounded-lg transition-all neu-checkbox peer-checked:bg-[#F0883E] peer-checked:border-[#F0883E] peer-checked:shadow-none flex items-center justify-center">
+                    <div
+                      className={`w-5 h-5 rounded-lg transition-all neu-checkbox flex items-center justify-center ${formData.consent ? 'bg-[#FFA500] border-[#FFA500] shadow-none' : ''
+                        }`}
+                    >
                       <svg
-                        className="w-3.5 h-3.5 text-white opacity-0 peer-checked:opacity-100 transition-opacity"
+                        className={`w-3.5 h-3.5 text-white transition-opacity ${formData.consent ? 'opacity-100' : 'opacity-0'
+                          }`}
                         fill="none"
                         stroke="currentColor"
                         strokeWidth="3"
